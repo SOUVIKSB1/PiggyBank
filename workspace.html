@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workspace Tools</title>
+  <link rel="stylesheet" href="../CSS/workspace.css">
+  <link rel="stylesheet" href="../CSS/shared.css">
+</head>
+<body>
+  <div class="navbar">
+    <a href="homepage.html" class="logo">PiggyBank <span>Live</span></a>
+    <div class="menu">
+      <a href="homepage.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analytics.html">Analytics</a>
+      <a href="budget.html">Budget</a>
+      <a href="history.html">History</a>
+      <a href="workspace.html" class="active">Workspace</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="hero">
+      <p class="eyebrow">Workspace tools</p>
+      <h1>Profiles and Backup</h1>
+      <p>Create users, review each workspace at a glance, switch profiles, and manage backup import/export without cluttering the finance dashboard.</p>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <span>Total Profiles</span>
+        <strong id="profileCount">0</strong>
+      </div>
+      <div class="stat">
+        <span>Active Profile</span>
+        <strong id="activeProfileName">-</strong>
+      </div>
+      <div class="stat">
+        <span>Total Transactions</span>
+        <strong id="totalTransactionCount">0</strong>
+      </div>
+      <div class="stat">
+        <span>Recurring Active</span>
+        <strong id="recurringCount">0</strong>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <p class="eyebrow">Create and switch</p>
+        <h2>Profile Controls</h2>
+        <div class="field-grid">
+          <label>
+            Create a new user profile
+            <div class="inline-field">
+              <input id="newProfileName" type="text" placeholder="Personal, Travel, Family, Team">
+              <button type="button" onclick="createProfileFromInput()">Create</button>
+            </div>
+          </label>
+
+          <label>
+            Switch current user
+            <select id="workspaceProfileSelect" onchange="switchProfileFromPage()"></select>
+          </label>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Safety and recovery</p>
+        <h2>Backup Center</h2>
+        <div class="field-grid">
+          <button type="button" onclick="exportBackupFile()">Export Backup JSON</button>
+          <button type="button" class="secondary" onclick="triggerImportBackup()">Import Backup JSON</button>
+          <input id="backupImportInput" type="file" accept="application/json" hidden onchange="importBackupFile(event)">
+          <p class="helper">Backups include all profiles, transactions, budgets, and recurring rules saved in this browser.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="eyebrow">All users</p>
+      <h2>Workspace Directory</h2>
+      <div id="profileList" class="profile-list"></div>
+    </section>
+  </div>
+
+  <script src="../JS/app-core.js"></script>
+  <script src="../JS/shared.js"></script>
+  <script src="../JS/workspace.js"></script>
+</body>
+</html>

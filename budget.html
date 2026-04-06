@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Planner</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="../CSS/budget.css">
+  <link rel="stylesheet" href="../CSS/shared.css">
+</head>
+<body>
+  <div class="navbar">
+    <a href="homepage.html" class="logo">PiggyBank <span>Live</span></a>
+    <div class="menu">
+      <a href="homepage.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analytics.html">Analytics</a>
+      <a href="budget.html" class="active">Budget</a>
+      <a href="history.html">History</a>
+      <a href="workspace.html">Workspace</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="hero">
+      <p class="eyebrow">Planning with live numbers</p>
+      <h1>Budget Planner</h1>
+      <p>The target and spending progress on this page now match the transactions you add on the dashboard.</p>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <span>Budget Target</span>
+        <strong id="budgetTargetValue">₹0</strong>
+      </div>
+      <div class="stat">
+        <span>Total Spent</span>
+        <strong id="spentValue">₹0</strong>
+      </div>
+      <div class="stat">
+        <span>Remaining</span>
+        <strong id="remainingValue">₹0</strong>
+      </div>
+      <div class="stat">
+        <span>Savings</span>
+        <strong id="savingsValue">₹0</strong>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <p class="eyebrow">Update plan</p>
+        <h2>Monthly Target</h2>
+        <div class="field-grid">
+          <label>
+            Monthly spending target
+            <input id="budgetTargetInput" type="number" min="0" placeholder="Enter spending target">
+          </label>
+          <button type="button" onclick="saveBudgetTarget()">Save Target</button>
+          <button type="button" class="secondary" onclick="useExpenseAverage()">Use Current Expense Total</button>
+        </div>
+
+        <div class="progress-card">
+          <h3>Target Progress</h3>
+          <p id="progressText">Set a target to start tracking progress.</p>
+          <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="alert-card">
+          <h3>Budget Alerts</h3>
+          <div id="budgetAlerts" class="alert-list"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Where the budget goes</p>
+        <h2>Category Usage</h2>
+        <div id="budgetList" class="budget-list"></div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <p class="eyebrow">Category controls</p>
+        <h2>Category Budgets</h2>
+        <div class="field-grid">
+          <label>
+            Category name
+            <input id="categoryBudgetName" type="text" placeholder="Food, Bills, Travel">
+          </label>
+          <label>
+            Monthly target
+            <input id="categoryBudgetAmount" type="number" min="0" step="0.01" placeholder="Enter category target">
+          </label>
+          <button type="button" onclick="saveCategoryBudget()">Save Category Budget</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Guardrails</p>
+        <h2>Budget Rules</h2>
+        <div id="categoryBudgetList" class="budget-list"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="eyebrow">Trend view</p>
+      <h2>Monthly Expense vs Remaining Budget</h2>
+      <canvas id="budgetChart"></canvas>
+    </section>
+  </div>
+
+  <script src="../JS/app-core.js"></script>
+  <script src="../JS/shared.js"></script>
+  <script src="../JS/budget.js"></script>
+</body>
+</html>

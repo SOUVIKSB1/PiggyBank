@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction History</title>
+  <link rel="stylesheet" href="../CSS/history.css">
+  <link rel="stylesheet" href="../CSS/shared.css">
+</head>
+<body>
+  <div class="navbar">
+    <a href="homepage.html" class="logo">PiggyBank <span>Live</span></a>
+    <div class="menu">
+      <a href="homepage.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analytics.html">Analytics</a>
+      <a href="budget.html">Budget</a>
+      <a href="history.html" class="active">History</a>
+      <a href="workspace.html">Workspace</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="hero">
+      <p class="eyebrow">Complete ledger</p>
+      <h1>Transaction History</h1>
+      <p>Every income and expense from the dashboard shows up here automatically, with filters for quicker review.</p>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <span>Entries</span>
+        <strong id="entryCount">0</strong>
+      </div>
+      <div class="stat">
+        <span>Income Entries</span>
+        <strong id="incomeCount">0</strong>
+      </div>
+      <div class="stat">
+        <span>Expense Entries</span>
+        <strong id="expenseCount">0</strong>
+      </div>
+      <div class="stat">
+        <span>Latest Date</span>
+        <strong id="latestDate">-</strong>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="eyebrow">Find records fast</p>
+      <h2>Filters</h2>
+      <div class="controls">
+        <select id="typeFilter" onchange="render()">
+          <option value="all">All</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <input id="categoryFilter" type="text" placeholder="Search category" oninput="render()">
+        <input id="searchFilter" type="text" placeholder="Search description" oninput="render()">
+        <input id="fromDateFilter" type="date" onchange="render()">
+        <input id="toDateFilter" type="date" onchange="render()">
+        <button type="button" onclick="clearFilters()">Clear Filters</button>
+      </div>
+      <div class="export-bar">
+        <div>
+          <p class="export-title">Export Expenses</p>
+          <p class="export-copy">Download the currently filtered expense records as an Excel-friendly sheet or a print-ready PDF.</p>
+        </div>
+        <div class="export-actions">
+          <button type="button" class="button-secondary" onclick="exportExpensesToCSV()">Export Excel</button>
+          <button type="button" class="button-primary" onclick="exportExpensesToPDF()">Export PDF</button>
+        </div>
+      </div>
+      <div id="historyList" class="list"></div>
+    </section>
+  </div>
+
+  <script src="../JS/app-core.js"></script>
+  <script src="../JS/shared.js"></script>
+  <script src="../JS/history.js"></script>
+</body>
+</html>

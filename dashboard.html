@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PiggyBank Dashboard</title>
+  <link rel="stylesheet" href="../CSS/dashboard.css">
+  <link rel="stylesheet" href="../CSS/shared.css">
+</head>
+<body>
+
+<div class="navbar">
+  <a href="homepage.html" class="logo">PiggyBank <span>Live</span></a>
+  <div class="menu">
+    <a href="homepage.html">Home</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="budget.html">Budget</a>
+    <a href="history.html">History</a>
+    <a href="workspace.html">Workspace</a>
+  </div>
+</div>
+
+<div class="container">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Realtime finance overview</p>
+      <h1>Money Tracker Dashboard</h1>
+      <p class="hero-copy">
+        Add income and expenses, monitor category-wise spending, and keep your balance updated automatically.
+      </p>
+    </div>
+
+    <div class="hero-actions">
+      <div class="goal-card">
+        <label for="budgetTarget">Monthly Spending Target</label>
+        <div class="goal-input-row">
+          <input id="budgetTarget" type="number" min="0" placeholder="Set target amount">
+          <button type="button" class="secondary-btn" onclick="saveBudgetTarget()">Save Target</button>
+        </div>
+        <p id="budgetMessage" class="helper-text">Set a target to track how much spending room is left this month.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cards">
+    <div class="card balance">
+      <span class="card-label">Available Balance</span>
+      <strong id="balanceValue">₹0</strong>
+      <small id="balanceMeta">Updated live from your entries</small>
+    </div>
+    <div class="card income">
+      <span class="card-label">Total Income</span>
+      <strong id="incomeValue">₹0</strong>
+      <small id="incomeMeta">0 income records</small>
+    </div>
+    <div class="card expense">
+      <span class="card-label">Total Expenses</span>
+      <strong id="expenseValue">₹0</strong>
+      <small id="expenseMeta">0 expense records</small>
+    </div>
+    <div class="card neutral">
+      <span class="card-label">Savings Rate</span>
+      <strong id="savingsRate">0%</strong>
+      <small id="targetMeta">No budget target yet</small>
+    </div>
+  </section>
+
+  <section class="main-grid">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <p class="panel-kicker">Add new records</p>
+          <h2>Transaction Center</h2>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="entryType">Type</label>
+          <select id="entryType">
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="entryCategory">Category</label>
+          <input id="entryCategory" type="text" placeholder="Food, Salary, Travel">
+        </div>
+
+        <div class="field">
+          <label for="entryDescription">Description</label>
+          <input id="entryDescription" type="text" placeholder="Lunch, Freelance project">
+        </div>
+
+        <div class="field">
+          <label for="entryAmount">Amount</label>
+          <input id="entryAmount" type="number" min="0" step="0.01" placeholder="0">
+        </div>
+
+        <div class="field">
+          <label for="entryDate">Date</label>
+          <input id="entryDate" type="date">
+        </div>
+
+        <div class="field field-actions">
+          <button type="button" class="primary-btn" onclick="addTransaction()">Add Transaction</button>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <button type="button" class="secondary-btn" onclick="seedDemoData()">Load Demo Data</button>
+        <button type="button" class="ghost-btn" onclick="clearAllData()">Clear All Data</button>
+        <a href="workspace.html" class="secondary-btn quick-link">Open Workspace</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <p class="panel-kicker">Spending pulse</p>
+          <h2>Insights</h2>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="mini-stat">
+          <span>Transactions</span>
+          <strong id="transactionCount">0</strong>
+        </div>
+        <div class="mini-stat">
+          <span>Top Expense</span>
+          <strong id="topCategory">None</strong>
+        </div>
+        <div class="mini-stat">
+          <span>Largest Entry</span>
+          <strong id="largestTransaction">₹0</strong>
+        </div>
+        <div class="mini-stat">
+          <span>Target Left</span>
+          <strong id="targetLeft">₹0</strong>
+        </div>
+      </div>
+
+      <div id="insight" class="insight"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <p class="panel-kicker">Future entries</p>
+        <h2>Recurring Planner</h2>
+      </div>
+    </div>
+
+    <div class="form-grid recurring-grid">
+      <div class="field">
+        <label for="recurringType">Type</label>
+        <select id="recurringType">
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="recurringCategory">Category</label>
+        <input id="recurringCategory" type="text" placeholder="Rent, Salary, Subscription">
+      </div>
+
+      <div class="field">
+        <label for="recurringDescription">Description</label>
+        <input id="recurringDescription" type="text" placeholder="Monthly rent, Weekly groceries">
+      </div>
+
+      <div class="field">
+        <label for="recurringAmount">Amount</label>
+        <input id="recurringAmount" type="number" min="0" step="0.01" placeholder="0">
+      </div>
+
+      <div class="field">
+        <label for="recurringFrequency">Frequency</label>
+        <select id="recurringFrequency">
+          <option value="monthly">Monthly</option>
+          <option value="weekly">Weekly</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="recurringStartDate">Start Date</label>
+        <input id="recurringStartDate" type="date">
+      </div>
+
+      <div class="field field-actions">
+        <button type="button" class="primary-btn" onclick="addRecurringTransaction()">Save Recurring Entry</button>
+      </div>
+    </div>
+
+    <div id="recurringList" class="recurring-list"></div>
+  </section>
+
+  <section class="visual-grid">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <p class="panel-kicker">Category view</p>
+          <h2>Expense Breakdown</h2>
+        </div>
+      </div>
+
+      <div class="chart-layout">
+        <div class="pie-wrap">
+          <div class="pie-shell">
+            <div class="pie" id="pieChart"></div>
+            <div class="pie-center">
+              <span id="pieCenterLabel">Expense total</span>
+              <strong id="pieCenterValue">₹0</strong>
+              <small id="pieCenterMeta">Select a category</small>
+            </div>
+          </div>
+          <p id="pieInfo" class="helper-text">Add expenses to build the chart.</p>
+        </div>
+
+        <div>
+          <div id="categoryHighlights" class="category-highlights"></div>
+          <div id="categoryList" class="category-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <p class="panel-kicker">Visual compare</p>
+          <h2>Expense Bars</h2>
+        </div>
+      </div>
+      <div id="barGraph" class="bar-graph"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head transactions-head">
+      <div>
+        <p class="panel-kicker">Recent activity</p>
+        <h2>Transactions</h2>
+      </div>
+
+      <div class="table-controls">
+        <select id="filterType" onchange="renderTransactions()">
+          <option value="all">All</option>
+          <option value="income">Income</option>
+          <option value="expense">Expenses</option>
+        </select>
+        <input id="searchText" type="text" placeholder="Search description or category" oninput="renderTransactions()">
+      </div>
+    </div>
+
+    <div id="transactionList" class="transaction-list"></div>
+  </section>
+</div>
+
+<script src="../JS/app-core.js"></script>
+<script src="../JS/shared.js"></script>
+<script src="../JS/dashboard.js"></script>
+
+</body>
+</html>

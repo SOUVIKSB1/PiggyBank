@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="../CSS/analytics.css">
+  <link rel="stylesheet" href="../CSS/shared.css">
+</head>
+<body>
+  <div class="navbar">
+    <a href="homepage.html" class="logo">PiggyBank <span>Live</span></a>
+    <div class="menu">
+      <a href="homepage.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analytics.html" class="active">Analytics</a>
+      <a href="budget.html">Budget</a>
+      <a href="history.html">History</a>
+      <a href="workspace.html">Workspace</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="hero">
+      <p class="eyebrow">Live financial intelligence</p>
+      <h1>Analytics Overview</h1>
+      <p>These charts now read directly from the same transactions you add on the dashboard.</p>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <span>Total Income</span>
+        <strong id="incomeTotal">₹0</strong>
+      </div>
+      <div class="stat">
+        <span>Total Expense</span>
+        <strong id="expenseTotal">₹0</strong>
+      </div>
+      <div class="stat">
+        <span>Net Balance</span>
+        <strong id="balanceTotal">₹0</strong>
+      </div>
+      <div class="stat">
+        <span>Transactions</span>
+        <strong id="transactionCount">0</strong>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <p class="eyebrow">Category split</p>
+        <h2>Expense Breakdown</h2>
+        <canvas id="expensePie"></canvas>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Income vs expense</p>
+        <h2>Monthly Trend</h2>
+        <div class="trend-chart-frame">
+          <canvas id="monthlyTrend"></canvas>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">What stands out</p>
+        <h2>Top Categories</h2>
+        <div id="categorySummary" class="summary-list"></div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Recent movement</p>
+        <h2>Latest Transactions</h2>
+        <div id="latestActivity" class="activity-list"></div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Forecast</p>
+        <h2>Projected Month End</h2>
+        <div id="forecastSummary" class="summary-list"></div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Risk radar</p>
+        <h2>Budget Alerts and Recurring</h2>
+        <div id="alertSummary" class="activity-list"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="../JS/app-core.js"></script>
+  <script src="../JS/shared.js"></script>
+  <script src="../JS/analytics.js"></script>
+</body>
+</html>
